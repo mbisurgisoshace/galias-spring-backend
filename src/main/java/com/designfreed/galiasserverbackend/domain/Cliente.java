@@ -23,8 +23,14 @@ public class Cliente implements Serializable {
     @Column(name = "E_MAIL")
     private String email;
 
+    @Column(name = "TELEFONO_1")
+    private String telefono;
+
     @Column(name = "CUIT")
     private String cuit;
+
+    @Column(name = "COD_GVA23")
+    private String vendedor;
 
     public Cliente() {
     }
@@ -69,11 +75,27 @@ public class Cliente implements Serializable {
         this.email = email;
     }
 
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
     public String getCuit() {
         return cuit;
     }
 
     public void setCuit(String cuit) {
         this.cuit = cuit;
+    }
+
+    public String getVendedor() {
+        return vendedor;
+    }
+
+    public void setVendedor(String vendedor) {
+        this.vendedor = vendedor;
     }
 }
