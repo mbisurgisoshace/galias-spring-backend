@@ -1,4 +1,4 @@
-package com.designfreed.galiasserverbackend.domain;
+package com.designfreed.galiasserverbackend.domain.tango;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "STA11")
-public class Articulo implements Serializable {
+public class ArticuloTango implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "ID_STA11")
@@ -21,9 +21,9 @@ public class Articulo implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "COD_ARTICU", referencedColumnName = "COD_ARTICU", nullable = false)
-    private List<Precio> precios = new ArrayList<>();
+    private List<PrecioTango> precios = new ArrayList<>();
 
-    public Articulo() {
+    public ArticuloTango() {
     }
 
     public Long getId() {
@@ -50,11 +50,11 @@ public class Articulo implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public List<Precio> getPrecios() {
+    public List<PrecioTango> getPrecios() {
         return precios;
     }
 
-    public void setPrecios(List<Precio> precios) {
+    public void setPrecios(List<PrecioTango> precios) {
         this.precios = precios;
     }
 }

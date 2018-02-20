@@ -1,6 +1,6 @@
 package com.designfreed.galiasserverbackend.rest;
 
-import com.designfreed.galiasserverbackend.domain.Articulo;
+import com.designfreed.galiasserverbackend.domain.tango.ArticuloTango;
 import com.designfreed.galiasserverbackend.services.ArticuloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +20,7 @@ public class ArticuloRestController {
     }
 
     @GetMapping("/list")
-    public List<Articulo> findAll() {
+    public List<ArticuloTango> findAll() {
         return this.articuloService.findAll();
     }
 }

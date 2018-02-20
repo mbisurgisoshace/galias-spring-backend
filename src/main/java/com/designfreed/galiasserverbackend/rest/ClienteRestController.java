@@ -1,11 +1,11 @@
 package com.designfreed.galiasserverbackend.rest;
 
-import com.designfreed.galiasserverbackend.domain.Cliente;
+import com.designfreed.galiasserverbackend.domain.crm.Cliente;
+import com.designfreed.galiasserverbackend.domain.tango.ClienteTango;
 import com.designfreed.galiasserverbackend.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,7 +20,22 @@ public class ClienteRestController {
     }
 
     @GetMapping("/list")
-    public List<Cliente> findAll() {
+    public List<ClienteTango> findAll() {
         return this.clienteService.findAll();
+    }
+
+    @PostMapping("/new")
+    public ResponseEntity<ClienteTango> add(@RequestBody Cliente cliente) {
+        ClienteTango savedCliente = clienteService.saveOrUpdate(cliente);
+
+        ResponseEntity<ClienteTango> response;
+
+        if (savedCliente != null) {
+            response = ResponseEntity.ok(savedCliente);
+        } else {
+            response = ResponseEntity.noContent().build();
+        }
+
+        return response;
     }
 }

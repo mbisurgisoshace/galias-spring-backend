@@ -1,11 +1,11 @@
-package com.designfreed.galiasserverbackend.domain;
+package com.designfreed.galiasserverbackend.domain.tango;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "GVA17")
-public class Precio implements Serializable {
+public class PrecioTango implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "ID_GVA17")
@@ -17,7 +17,7 @@ public class Precio implements Serializable {
     @Column(name = "PRECIO")
     private Double precio;
 
-    public Precio() {
+    public PrecioTango() {
     }
 
     public Long getId() {
