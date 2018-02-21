@@ -3,7 +3,9 @@ package com.designfreed.galiasserverbackend.services.implementation;
 import com.designfreed.galiasserverbackend.domain.crm.Cliente;
 import com.designfreed.galiasserverbackend.domain.crm.Direccion;
 import com.designfreed.galiasserverbackend.domain.tango.ClienteTango;
+import com.designfreed.galiasserverbackend.domain.tango.DireccionEntregaTango;
 import com.designfreed.galiasserverbackend.repositories.ClienteRepository;
+import com.designfreed.galiasserverbackend.repositories.DireccionEntregaRepository;
 import com.designfreed.galiasserverbackend.services.ClienteService;
 import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +19,16 @@ import java.util.List;
 @Profile("jpa_repository")
 public class ClienteServiceRepositoryImpl implements ClienteService {
     private ClienteRepository clienteRepository;
+    private DireccionEntregaRepository direccionEntregaRepository;
 
     @Autowired
     public void setClienteRepository(ClienteRepository clienteRepository) {
         this.clienteRepository = clienteRepository;
+    }
+
+    @Autowired
+    public void setDireccionEntregaRepository(DireccionEntregaRepository direccionEntregaRepository) {
+        this.direccionEntregaRepository = direccionEntregaRepository;
     }
 
     @Override
@@ -60,18 +68,29 @@ public class ClienteServiceRepositoryImpl implements ClienteService {
         clienteTango.setCodigoTabla18(clienteTango.getProvincia());
         clienteTango.setCodigoTabla05(clienteTango.getZona());
 
+        ClienteTango newCliente = clienteRepository.save(clienteTango);
 
-        return clienteRepository.save(clienteTango);
+        if(newCliente != null) {
+            generateDireccionEntrega(cliente);
+        }
+
+        return newCliente;
     }
 
     private Integer getCondicionPago(Integer dias) {
         switch (dias) {
             case 0:
                 return 1;
-            case 7:
-                return 2;
+            case 1:
+                return 6;
             case 15:
+                return 2;
+            case 21:
+                return 4;
+            case 30:
                 return 3;
+            case 45:
+                return 5;
             default:
                 return 0;
         }
@@ -128,5 +147,39 @@ public class ClienteServiceRepositoryImpl implements ClienteService {
         String altura = direccion.getAltura();
 
         return String.format("%s %s", calle, altura);
+    }
+
+    private void generateDireccionEntrega(Cliente cliente) {
+        DireccionEntregaTango direccionTango = new DireccionEntregaTango();
+
+        direccionTango.setCodigo("PRINCIPAL");
+        direccionTango.setCliente(cliente.getCodigo());
+        direccionTango.setDireccion(formatDireccion(cliente.getDireccion()));
+        direccionTango.setProvincia("14");
+        direccionTango.setLocalidad(cliente.getDireccion().getLocalidad());
+        direccionTango.setHabitual("S");
+        direccionTango.setCodigoPostal(cliente.getDireccion().getCodigoPostal());
+        direccionTango.setTelefono("");
+        direccionTango.setHabilitado("S");
+
+        direccionEntregaRepository.save(direccionTango);
+
+        if(cliente.getSucursales() != null) {
+            DireccionEntregaTango sucursalTango = new DireccionEntregaTango();
+
+            for (Direccion direccion : cliente.getSucursales()) {
+                sucursalTango.setCodigo("SUCURSAL");
+                sucursalTango.setCliente(cliente.getCodigo());
+                sucursalTango.setDireccion(formatDireccion(direccion));
+                sucursalTango.setProvincia("14");
+                sucursalTango.setLocalidad(direccion.getLocalidad());
+                sucursalTango.setHabitual("N");
+                sucursalTango.setCodigoPostal(direccion.getCodigoPostal());
+                sucursalTango.setTelefono("");
+                sucursalTango.setHabilitado("S");
+
+                direccionEntregaRepository.save(sucursalTango);
+            }
+        }
     }
 }

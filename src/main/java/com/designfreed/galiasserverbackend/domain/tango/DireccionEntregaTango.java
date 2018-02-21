@@ -6,8 +6,9 @@ import java.io.Serializable;
 @Entity
 @Table(name = "DIRECCION_ENTREGA")
 public class DireccionEntregaTango implements Serializable {
+    @TableGenerator(name = "direccion-gen", table = "PROVIDERID", pkColumnName = "ID_PROVIDERID", valueColumnName = "ULTIMOID", pkColumnValue = "8", allocationSize=1)
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "direccion-gen")
     @Column(name = "ID_DIRECCION_ENTREGA")
     private Long id;
 
@@ -23,10 +24,16 @@ public class DireccionEntregaTango implements Serializable {
     @Column(name = "COD_PROVINCIA")
     private String provincia;
 
+    @Column(name = "LOCALIDAD")
+    private String localidad;
+
     @Column(name = "HABITUAL")
     private String habitual;
 
-    @Column(name = "TELEFONO_1")
+    @Column(name = "CODIGO_POSTAL")
+    private String codigoPostal;
+
+    @Column(name = "TELEFONO1")
     private String telefono;
 
     @Column(name = "HABILITADO")
@@ -75,12 +82,28 @@ public class DireccionEntregaTango implements Serializable {
         this.provincia = provincia;
     }
 
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
+
     public String getHabitual() {
         return habitual;
     }
 
     public void setHabitual(String habitual) {
         this.habitual = habitual;
+    }
+
+    public String getCodigoPostal() {
+        return codigoPostal;
+    }
+
+    public void setCodigoPostal(String codigoPostal) {
+        this.codigoPostal = codigoPostal;
     }
 
     public String getTelefono() {

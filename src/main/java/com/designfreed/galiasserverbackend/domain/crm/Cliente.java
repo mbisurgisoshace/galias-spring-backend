@@ -1,5 +1,7 @@
 package com.designfreed.galiasserverbackend.domain.crm;
 
+import java.util.List;
+
 public class Cliente {
     private String codigo;
     private String razonSocial;
@@ -7,6 +9,7 @@ public class Cliente {
     private String iva;
     private String nombreComercial;
     private Direccion direccion;
+    private List<Direccion> sucursales;
     private Integer condicionPago;
 
     public Cliente() {
@@ -58,6 +61,14 @@ public class Cliente {
 
     public void setDireccion(Direccion direccion) {
         this.direccion = direccion;
+    }
+
+    public List<Direccion> getSucursales() {
+        return sucursales;
+    }
+
+    public void setSucursales(List<Direccion> sucursales) {
+        this.sucursales = sucursales;
     }
 
     public Integer getCondicionPago() {
