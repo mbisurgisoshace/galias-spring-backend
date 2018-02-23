@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ClienteRepository extends CrudRepository<ClienteTango, Long> {
+    ClienteTango findByCodigo(String codigo);
 }

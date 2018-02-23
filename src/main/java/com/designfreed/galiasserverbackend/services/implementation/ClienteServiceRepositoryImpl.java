@@ -42,39 +42,52 @@ public class ClienteServiceRepositoryImpl implements ClienteService {
     }
 
     @Override
+    public ClienteTango findByCodigo(String codigo) {
+        return this.clienteRepository.findByCodigo(codigo);
+    }
+
+    @Override
     public ClienteTango saveOrUpdate(Cliente cliente) {
-        ClienteTango clienteTango = new ClienteTango();
+        try {
+            ClienteTango clienteTango = findByCodigo(cliente.getCodigo());
 
-        clienteTango.setCodigo(cliente.getCodigo());
-        clienteTango.setProvincia("14");
-        clienteTango.setZona("1");
-        clienteTango.setCondicionVenta(getCondicionPago(cliente.getCondicionPago()));
-        clienteTango.setCuit(cliente.getCuit());
-        clienteTango.setDireccionComercial(formatDireccion(cliente.getDireccion()));
-        clienteTango.setDireccion(clienteTango.getDireccionComercial());
-        clienteTango.setFechaAlta(new Date());
-        clienteTango.setInternosD("N");
-        clienteTango.setInternosL("N");
-        clienteTango.setIvaD(getDiscriminaIva(cliente.getIva()));
-        clienteTango.setIvaL("S");
-        clienteTango.setNombreComercial(cliente.getNombreComercial());
-        clienteTango.setRazonSocial(cliente.getRazonSocial());
-        clienteTango.setSobreIi("N");
-        clienteTango.setSobreIva("N");
-        clienteTango.setTelefono("");
-        clienteTango.setTipoDocumento(getTipoDocumento(cliente.getIva()));
-        clienteTango.setCodigoTabla14(cliente.getCodigo());
-        clienteTango.setCondicionIva(getCondicionIva(cliente.getIva()));
-        clienteTango.setCodigoTabla18(clienteTango.getProvincia());
-        clienteTango.setCodigoTabla05(clienteTango.getZona());
+            if (clienteTango == null) {
+                clienteTango = new ClienteTango();
+            }
 
-        ClienteTango newCliente = clienteRepository.save(clienteTango);
+            clienteTango.setCodigo(cliente.getCodigo());
+            clienteTango.setProvincia("14");
+            clienteTango.setZona("1");
+            clienteTango.setCondicionVenta(getCondicionPago(cliente.getCondicionPago()));
+            clienteTango.setCuit(cliente.getCuit());
+            clienteTango.setDireccionComercial(formatDireccion(cliente.getDireccion()));
+            clienteTango.setDireccion(clienteTango.getDireccionComercial());
+            clienteTango.setFechaAlta(new Date());
+            clienteTango.setInternosD("N");
+            clienteTango.setInternosL("N");
+            clienteTango.setIvaD(getDiscriminaIva(cliente.getIva()));
+            clienteTango.setIvaL("S");
+            clienteTango.setNombreComercial(cliente.getNombreComercial());
+            clienteTango.setRazonSocial(cliente.getRazonSocial());
+            clienteTango.setSobreIi("N");
+            clienteTango.setSobreIva("N");
+            clienteTango.setTelefono("");
+            clienteTango.setTipoDocumento(getTipoDocumento(cliente.getIva()));
+            clienteTango.setCodigoTabla14(cliente.getCodigo());
+            clienteTango.setCondicionIva(getCondicionIva(cliente.getIva()));
+            clienteTango.setCodigoTabla18(clienteTango.getProvincia());
+            clienteTango.setCodigoTabla05(clienteTango.getZona());
 
-        if(newCliente != null) {
-            generateDireccionEntrega(cliente);
+            ClienteTango newCliente = clienteRepository.save(clienteTango);
+
+            if(newCliente != null) {
+                generateDireccionEntrega(cliente);
+            }
+
+            return newCliente;
+        } catch (Exception e) {
+            return null;
         }
-
-        return newCliente;
     }
 
     private Integer getCondicionPago(Integer dias) {
@@ -150,6 +163,8 @@ public class ClienteServiceRepositoryImpl implements ClienteService {
     }
 
     private void generateDireccionEntrega(Cliente cliente) {
+        direccionEntregaRepository.deleteByCliente(cliente.getCodigo());
+
         DireccionEntregaTango direccionTango = new DireccionEntregaTango();
 
         direccionTango.setCodigo("PRINCIPAL");

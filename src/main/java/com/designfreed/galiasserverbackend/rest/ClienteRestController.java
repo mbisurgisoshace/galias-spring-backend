@@ -38,4 +38,19 @@ public class ClienteRestController {
 
         return response;
     }
+
+    @PatchMapping("/update")
+    public ResponseEntity<ClienteTango> update(@RequestBody Cliente cliente) {
+        ClienteTango savedCliente = clienteService.saveOrUpdate(cliente);
+
+        ResponseEntity<ClienteTango> response;
+
+        if (savedCliente != null) {
+            response = ResponseEntity.ok(savedCliente);
+        } else {
+            response = ResponseEntity.noContent().build();
+        }
+
+        return response;
+    }
 }

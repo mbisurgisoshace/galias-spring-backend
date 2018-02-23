@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.designfreed</groupId>
-	<artifactId>galias-server-backend</artifactId>
+	<artifactId>galias-server-backend-dev</artifactId>
 	<version>1.0.0</version>
 	<packaging>war</packaging>
 
-	<name>galias-server-backend</name>
+	<name>galias-server-backend-dev</name>
 	<description>Backend para acceso a base de datos del ERP Axoft Tango</description>
 
 	<parent>

@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DireccionEntregaRepository extends CrudRepository<DireccionEntregaTango, Long> {
+    void deleteByCliente(String cliente);
 }
