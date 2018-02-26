@@ -57,7 +57,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>galias-server-backend</finalName>
+		<finalName>galias-server-backend-dev</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
