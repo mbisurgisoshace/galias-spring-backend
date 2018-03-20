@@ -5,4 +5,5 @@ import com.designfreed.galiasserverbackend.domain.tango.ArticuloTango;
 import com.designfreed.galiasserverbackend.services.generics.CRUDService;
 
 public interface ArticuloService extends CRUDService<ArticuloTango, Articulo> {
+    ArticuloTango findByCodigo(String codigo);
 }

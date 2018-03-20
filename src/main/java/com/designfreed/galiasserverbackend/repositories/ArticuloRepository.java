@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ArticuloRepository extends CrudRepository<ArticuloTango, Long> {
+    ArticuloTango findByCodigo(String codigo);
 }

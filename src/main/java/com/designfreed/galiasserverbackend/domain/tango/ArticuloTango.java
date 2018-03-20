@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 @Table(name = "STA11")
 public class ArticuloTango implements Serializable {
-    @TableGenerator(name = "articulo-gen", table = "PROVIDERID", pkColumnName = "ID_PROVIDERID", valueColumnName = "ULTIMOID", pkColumnValue = "29", allocationSize=1)
+    @TableGenerator(name = "articulo-gen", table = "PROVIDERID", pkColumnName = "ID_PROVIDERID", valueColumnName = "ULTIMOID", pkColumnValue = "27", allocationSize=1)
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "articulo-gen")
     @Column(name = "ID_STA11")
@@ -54,6 +54,9 @@ public class ArticuloTango implements Serializable {
     @Column(name = "PERFIL")
     private String perfil;
 
+    @Column(name = "PROMO_MENU")
+    private String tipo;
+
     @Column(name = "STOCK")
     private Boolean stock;
 
@@ -62,6 +65,12 @@ public class ArticuloTango implements Serializable {
 
     @Column(name = "USA_PARTID")
     private Boolean partida;
+
+    @Column(name = "MET_DES_PA")
+    private String descarga;
+
+    @Column(name = "ORD_DES_PA")
+    private String orden;
 
     @Column(name = "REMITIBLE")
     private String remitible;
@@ -78,9 +87,6 @@ public class ArticuloTango implements Serializable {
     @Column(name = "DESCARGA_NEGATIVO_STOCK")
     private Boolean stockNegativo;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    @JoinColumn(name = "COD_ARTICU", referencedColumnName = "COD_ARTICU", nullable = false)
-    private List<PrecioTango> precios = new ArrayList<>();
 
     public ArticuloTango() {
     }
@@ -101,6 +107,70 @@ public class ArticuloTango implements Serializable {
         this.codigo = codigo;
     }
 
+    public Integer getIiVentas() {
+        return iiVentas;
+    }
+
+    public void setIiVentas(Integer iiVentas) {
+        this.iiVentas = iiVentas;
+    }
+
+    public Integer getIiCompras() {
+        return iiCompras;
+    }
+
+    public void setIiCompras(Integer iiCompras) {
+        this.iiCompras = iiCompras;
+    }
+
+    public Integer getIvaVentas() {
+        return ivaVentas;
+    }
+
+    public void setIvaVentas(Integer ivaVentas) {
+        this.ivaVentas = ivaVentas;
+    }
+
+    public Integer getIvaCompras() {
+        return ivaCompras;
+    }
+
+    public void setIvaCompras(Integer ivaCompras) {
+        this.ivaCompras = ivaCompras;
+    }
+
+    public Integer getPercepIiVentas() {
+        return percepIiVentas;
+    }
+
+    public void setPercepIiVentas(Integer percepIiVentas) {
+        this.percepIiVentas = percepIiVentas;
+    }
+
+    public Integer getPercepIiCompras() {
+        return percepIiCompras;
+    }
+
+    public void setPercepIiCompras(Integer percepIiCompras) {
+        this.percepIiCompras = percepIiCompras;
+    }
+
+    public Integer getPercepIvaVentas() {
+        return percepIvaVentas;
+    }
+
+    public void setPercepIvaVentas(Integer percepIvaVentas) {
+        this.percepIvaVentas = percepIvaVentas;
+    }
+
+    public Integer getPercepIvaCompras() {
+        return percepIvaCompras;
+    }
+
+    public void setPercepIvaCompras(Integer percepIvaCompras) {
+        this.percepIvaCompras = percepIvaCompras;
+    }
+
     public String getDescripcion() {
         return descripcion;
     }
@@ -109,11 +179,115 @@ public class ArticuloTango implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public List<PrecioTango> getPrecios() {
-        return precios;
+    public Float getEquivalenciaVenta() {
+        return equivalenciaVenta;
     }
 
-    public void setPrecios(List<PrecioTango> precios) {
-        this.precios = precios;
+    public void setEquivalenciaVenta(Float equivalenciaVenta) {
+        this.equivalenciaVenta = equivalenciaVenta;
+    }
+
+    public Date getFechaAlta() {
+        return fechaAlta;
+    }
+
+    public void setFechaAlta(Date fechaAlta) {
+        this.fechaAlta = fechaAlta;
+    }
+
+    public String getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(String perfil) {
+        this.perfil = perfil;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public Boolean getStock() {
+        return stock;
+    }
+
+    public void setStock(Boolean stock) {
+        this.stock = stock;
+    }
+
+    public String getEscala() {
+        return escala;
+    }
+
+    public void setEscala(String escala) {
+        this.escala = escala;
+    }
+
+    public Boolean getPartida() {
+        return partida;
+    }
+
+    public void setPartida(Boolean partida) {
+        this.partida = partida;
+    }
+
+    public String getDescarga() {
+        return descarga;
+    }
+
+    public void setDescarga(String descarga) {
+        this.descarga = descarga;
+    }
+
+    public String getOrden() {
+        return orden;
+    }
+
+    public void setOrden(String orden) {
+        this.orden = orden;
+    }
+
+    public String getRemitible() {
+        return remitible;
+    }
+
+    public void setRemitible(String remitible) {
+        this.remitible = remitible;
+    }
+
+    public String getCodigoTabla11() {
+        return codigoTabla11;
+    }
+
+    public void setCodigoTabla11(String codigoTabla11) {
+        this.codigoTabla11 = codigoTabla11;
+    }
+
+    public Integer getUnidadStock() {
+        return unidadStock;
+    }
+
+    public void setUnidadStock(Integer unidadStock) {
+        this.unidadStock = unidadStock;
+    }
+
+    public Integer getUnidadVenta() {
+        return unidadVenta;
+    }
+
+    public void setUnidadVenta(Integer unidadVenta) {
+        this.unidadVenta = unidadVenta;
+    }
+
+    public Boolean getStockNegativo() {
+        return stockNegativo;
+    }
+
+    public void setStockNegativo(Boolean stockNegativo) {
+        this.stockNegativo = stockNegativo;
     }
 }
