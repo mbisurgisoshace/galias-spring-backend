@@ -25,8 +25,8 @@ public class ArticuloRestController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<ArticuloTango> add(@RequestBody Articulo cliente) {
-        ArticuloTango savedArticulo = articuloService.saveOrUpdate(cliente);
+    public ResponseEntity<ArticuloTango> add(@RequestBody Articulo articulo) {
+        ArticuloTango savedArticulo = articuloService.saveOrUpdate(articulo);
 
         ResponseEntity<ArticuloTango> response;
 
