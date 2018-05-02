@@ -40,13 +40,28 @@ public class ArticuloRestController {
     }
 
     @PatchMapping("/update")
-    public ResponseEntity<ArticuloTango> update(@RequestBody Articulo cliente) {
-        ArticuloTango savedArticulo = articuloService.saveOrUpdate(cliente);
+    public ResponseEntity<ArticuloTango> update(@RequestBody Articulo articulo) {
+        ArticuloTango savedArticulo = articuloService.saveOrUpdate(articulo);
 
         ResponseEntity<ArticuloTango> response;
 
         if (savedArticulo != null) {
             response = ResponseEntity.ok(savedArticulo);
+        } else {
+            response = ResponseEntity.noContent().build();
+        }
+
+        return response;
+    }
+
+    @PatchMapping("/update/precios")
+    public ResponseEntity<Boolean> updatePrecios(@RequestBody List<Articulo> articulos) {
+        Boolean precios = articuloService.precios(articulos);
+
+        ResponseEntity<Boolean> response;
+
+        if (precios != null) {
+            response = ResponseEntity.ok(precios);
         } else {
             response = ResponseEntity.noContent().build();
         }

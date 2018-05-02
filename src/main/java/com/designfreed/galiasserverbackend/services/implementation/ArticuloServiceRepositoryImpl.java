@@ -58,7 +58,6 @@ public class ArticuloServiceRepositoryImpl implements ArticuloService {
 
 
     @Override
-//    @Transactional(isolation = Isolation.READ_UNCOMMITTED)
     public ArticuloTango saveOrUpdate(Articulo articulo) {
         try {
             ArticuloTango articuloTango = findByCodigo(articulo.getCodigo());
@@ -102,6 +101,19 @@ public class ArticuloServiceRepositoryImpl implements ArticuloService {
             return newArticulo;
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    @Override
+    public Boolean precios(List<Articulo> articulos) {
+        try {
+            for (Articulo articulo: articulos) {
+                generatePrecio(articulo);
+            }
+
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
 
