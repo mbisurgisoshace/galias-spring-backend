@@ -7,7 +7,7 @@ import java.util.Date;
 @Entity
 @Table(name = "GVA14")
 public class ClienteTango implements Serializable {
-    @TableGenerator(name = "cliente-gen", table = "PROVIDERID", pkColumnName = "ID_PROVIDERID", valueColumnName = "ULTIMOID", pkColumnValue = "7", allocationSize=1)
+    @TableGenerator(name = "cliente-gen", table = "PROVIDERID", pkColumnName = "ID_PROVIDERID", valueColumnName = "ULTIMOID", pkColumnValue = "20", allocationSize=1)
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "cliente-gen")
     @Column(name = "ID_GVA14")

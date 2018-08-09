@@ -13,7 +13,6 @@ import com.designfreed.galiasserverbackend.services.ArticuloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -21,6 +20,7 @@ import java.util.List;
 
 @Service
 @Profile("jpa_repository")
+@Transactional
 public class ArticuloServiceRepositoryImpl implements ArticuloService {
     private ArticuloRepository articuloRepository;
     private EquivalenciaRepository equivalenciaRepository;
@@ -146,7 +146,10 @@ public class ArticuloServiceRepositoryImpl implements ArticuloService {
 
     private void generateUnidadesCompra(Articulo articulo, Long id) {
         EquivalenciaTango deletedEquivalenciaTango = equivalenciaRepository.findByArticulo(id);
-        equivalenciaRepository.delete(deletedEquivalenciaTango.getId());
+
+        if (deletedEquivalenciaTango != null) {
+            equivalenciaRepository.delete(deletedEquivalenciaTango.getId());
+        }
 
         for (Equivalencia equivalencia: articulo.getUnidadesCpa()) {
             EquivalenciaTango equivalenciaTango = new EquivalenciaTango();
@@ -161,8 +164,8 @@ public class ArticuloServiceRepositoryImpl implements ArticuloService {
     }
 
     private void generatePrecio(Articulo articulo) {
-        PrecioTango precioConIva = precioRepository.findByArticuloAndNumero(articulo.getCodigo(), 1);
-        PrecioTango precioSinIva = precioRepository.findByArticuloAndNumero(articulo.getCodigo(), 2);
+        PrecioTango precioConIva = precioRepository.findByArticuloAndTipo(articulo.getCodigo(), 1);
+        PrecioTango precioSinIva = precioRepository.findByArticuloAndTipo(articulo.getCodigo(), 2);
 
         if (precioConIva != null) {
             precioConIva.setPrecio(articulo.getPrecioVta());
@@ -170,7 +173,7 @@ public class ArticuloServiceRepositoryImpl implements ArticuloService {
         } else {
             precioConIva = new PrecioTango();
             precioConIva.setArticulo(articulo.getCodigo());
-            precioConIva.setNumero(1);
+            precioConIva.setTipo(1);
             precioConIva.setPrecio(articulo.getPrecioVta());
             precioConIva.setFechaModificacion(new Date());
         }
@@ -181,7 +184,7 @@ public class ArticuloServiceRepositoryImpl implements ArticuloService {
         } else {
             precioSinIva = new PrecioTango();
             precioSinIva.setArticulo(articulo.getCodigo());
-            precioSinIva.setNumero(2);
+            precioSinIva.setTipo(2);
             precioSinIva.setPrecio(articulo.getPrecioVta() / (1 + articulo.getIva() / 100));
             precioSinIva.setFechaModificacion(new Date());
         }

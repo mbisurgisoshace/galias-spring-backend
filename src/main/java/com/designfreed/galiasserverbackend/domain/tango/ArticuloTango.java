@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 @Table(name = "STA11")
 public class ArticuloTango implements Serializable {
-    @TableGenerator(name = "articulo-gen", table = "PROVIDERID", pkColumnName = "ID_PROVIDERID", valueColumnName = "ULTIMOID", pkColumnValue = "27", allocationSize=1)
+    @TableGenerator(name = "articulo-gen", table = "PROVIDERID", pkColumnName = "ID_PROVIDERID", valueColumnName = "ULTIMOID", pkColumnValue = "10", allocationSize=1)
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "articulo-gen")
     @Column(name = "ID_STA11")
@@ -86,6 +86,10 @@ public class ArticuloTango implements Serializable {
 
     @Column(name = "DESCARGA_NEGATIVO_STOCK")
     private Boolean stockNegativo;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "COD_ARTICU", referencedColumnName = "COD_ARTICU" ,nullable = false, insertable = false, updatable = false)
+    private List<PrecioTango> precios;
 
 
     public ArticuloTango() {
@@ -289,5 +293,13 @@ public class ArticuloTango implements Serializable {
 
     public void setStockNegativo(Boolean stockNegativo) {
         this.stockNegativo = stockNegativo;
+    }
+
+    public List<PrecioTango> getPrecios() {
+        return precios;
+    }
+
+    public void setPrecios(List<PrecioTango> precios) {
+        this.precios = precios;
     }
 }

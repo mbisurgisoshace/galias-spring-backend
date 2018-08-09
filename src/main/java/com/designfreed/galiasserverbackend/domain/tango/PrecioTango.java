@@ -15,7 +15,7 @@ public class PrecioTango {
     private String articulo;
 
     @Column(name = "NRO_DE_LIS")
-    private Integer numero;
+    private Integer tipo;
 
     @Column(name = "PRECIO")
     private Double precio;
@@ -42,12 +42,12 @@ public class PrecioTango {
         this.articulo = articulo;
     }
 
-    public Integer getNumero() {
-        return numero;
+    public Integer getTipo() {
+        return tipo;
     }
 
-    public void setNumero(Integer numero) {
-        this.numero = numero;
+    public void setTipo(Integer tipo) {
+        this.tipo = tipo;
     }
 
     public Double getPrecio() {

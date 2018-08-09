@@ -4,6 +4,8 @@ import com.designfreed.galiasserverbackend.domain.crm.Remito;
 import com.designfreed.galiasserverbackend.domain.tango.ClienteTango;
 import com.designfreed.galiasserverbackend.domain.tango.RemitoTango;
 import com.designfreed.galiasserverbackend.services.RemitoService;
+import com.google.gson.JsonObject;
+import org.codehaus.jackson.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +28,8 @@ public class RemitoRestController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<RemitoTango> add(@RequestBody Remito remito) {
-        RemitoTango savedRemito = remitoService.saveOrUpdate(remito);
+    public ResponseEntity<RemitoTango> add(@RequestBody JsonObject remito) {
+        RemitoTango savedRemito = remitoService.saveOrUpdate(null);
 
         ResponseEntity<RemitoTango> response;
 

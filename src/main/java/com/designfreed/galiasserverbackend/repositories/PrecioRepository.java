@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface PrecioRepository extends CrudRepository<PrecioTango, Long> {
-    PrecioTango findByArticuloAndNumero(String articulo, Integer numero);
+    PrecioTango findByArticuloAndTipo(String articulo, Integer tipo);
 }

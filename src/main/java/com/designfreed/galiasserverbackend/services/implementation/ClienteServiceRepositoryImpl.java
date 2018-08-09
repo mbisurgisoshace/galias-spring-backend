@@ -18,6 +18,7 @@ import java.util.List;
 
 @Service
 @Profile("jpa_repository")
+@Transactional
 public class ClienteServiceRepositoryImpl implements ClienteService {
     private ClienteRepository clienteRepository;
     private DireccionEntregaRepository direccionEntregaRepository;
@@ -48,7 +49,6 @@ public class ClienteServiceRepositoryImpl implements ClienteService {
     }
 
     @Override
-    @Transactional
     public ClienteTango saveOrUpdate(Cliente cliente) {
         try {
             ClienteTango clienteTango = findByCodigo(cliente.getCodigo());
@@ -165,12 +165,17 @@ public class ClienteServiceRepositoryImpl implements ClienteService {
     }
 
     private void generateDireccionEntrega(Cliente cliente) {
-        direccionEntregaRepository.deleteByCliente(cliente.getCodigo());
+        DireccionEntregaTango direccionTango = direccionEntregaRepository.findByCodigoAndCliente("PRINCIPAL", cliente.getCodigo());
 
-        DireccionEntregaTango direccionTango = new DireccionEntregaTango();
+        //direccionEntregaRepository.deleteByCliente(cliente.getCodigo());
 
-        direccionTango.setCodigo("PRINCIPAL");
-        direccionTango.setCliente(cliente.getCodigo());
+        if (direccionTango == null) {
+            direccionTango = new DireccionEntregaTango();
+            direccionTango.setCodigo("PRINCIPAL");
+            direccionTango.setCliente(cliente.getCodigo());
+        }
+
+        //DireccionEntregaTango direccionTango = new DireccionEntregaTango();
         direccionTango.setDireccion(formatDireccion(cliente.getDireccion()));
         direccionTango.setProvincia("14");
         direccionTango.setLocalidad(cliente.getDireccion().getLocalidad());
@@ -181,22 +186,22 @@ public class ClienteServiceRepositoryImpl implements ClienteService {
 
         direccionEntregaRepository.save(direccionTango);
 
-        if(cliente.getSucursales() != null) {
-            DireccionEntregaTango sucursalTango = new DireccionEntregaTango();
-
-            for (Direccion direccion : cliente.getSucursales()) {
-                sucursalTango.setCodigo("SUCURSAL");
-                sucursalTango.setCliente(cliente.getCodigo());
-                sucursalTango.setDireccion(formatDireccion(direccion));
-                sucursalTango.setProvincia("14");
-                sucursalTango.setLocalidad(direccion.getLocalidad());
-                sucursalTango.setHabitual("N");
-                sucursalTango.setCodigoPostal(direccion.getCodigoPostal());
-                sucursalTango.setTelefono("");
-                sucursalTango.setHabilitado("S");
-
-                direccionEntregaRepository.save(sucursalTango);
-            }
-        }
+//        if(cliente.getSucursales() != null) {
+//            DireccionEntregaTango sucursalTango = new DireccionEntregaTango();
+//
+//            for (Direccion direccion : cliente.getSucursales()) {
+//                sucursalTango.setCodigo("SUCURSAL");
+//                sucursalTango.setCliente(cliente.getCodigo());
+//                sucursalTango.setDireccion(formatDireccion(direccion));
+//                sucursalTango.setProvincia("14");
+//                sucursalTango.setLocalidad(direccion.getLocalidad());
+//                sucursalTango.setHabitual("N");
+//                sucursalTango.setCodigoPostal(direccion.getCodigoPostal());
+//                sucursalTango.setTelefono("");
+//                sucursalTango.setHabilitado("S");
+//
+//                direccionEntregaRepository.save(sucursalTango);
+//            }
+//        }
     }
 }
