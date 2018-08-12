@@ -3,6 +3,7 @@ package com.designfreed.galiasserverbackend.rest;
 import com.designfreed.galiasserverbackend.domain.crm.Remito;
 import com.designfreed.galiasserverbackend.domain.tango.ClienteTango;
 import com.designfreed.galiasserverbackend.domain.tango.RemitoTango;
+import com.designfreed.galiasserverbackend.domain.view.RemitoView;
 import com.designfreed.galiasserverbackend.services.RemitoService;
 import com.google.gson.JsonObject;
 import org.codehaus.jackson.JsonNode;
@@ -28,10 +29,10 @@ public class RemitoRestController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<RemitoTango> add(@RequestBody JsonObject remito) {
-        RemitoTango savedRemito = remitoService.saveOrUpdate(null);
+    public ResponseEntity<Boolean> add(@RequestBody RemitoView remito) {
+        Boolean savedRemito = remitoService.sync(remito);
 
-        ResponseEntity<RemitoTango> response;
+        ResponseEntity<Boolean> response;
 
         if (savedRemito != null) {
             response = ResponseEntity.ok(savedRemito);

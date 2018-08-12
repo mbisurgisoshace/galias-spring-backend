@@ -1,11 +1,12 @@
 package com.designfreed.galiasserverbackend.domain.view;
 
 import java.util.Date;
+import java.util.List;
 
 public class RemitoView {
     private Date fecha;
     private String cliente;
-    private RemitoViewItem items;
+    private List<RemitoViewItem> items;
 
     public RemitoView() {
     }
@@ -26,11 +27,11 @@ public class RemitoView {
         this.cliente = cliente;
     }
 
-    public RemitoViewItem getItems() {
+    public List<RemitoViewItem> getItems() {
         return items;
     }
 
-    public void setItems(RemitoViewItem items) {
+    public void setItems(List<RemitoViewItem> items) {
         this.items = items;
     }
 }

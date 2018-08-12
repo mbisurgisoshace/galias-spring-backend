@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RemitoRepository extends CrudRepository<RemitoTango, Long> {
     RemitoTango findFirst1ByOrderByInternoDesc();
+    RemitoTango findFirst1ByTalonarioOrderByComprobanteDesc(Integer talonario);
 }

@@ -145,16 +145,14 @@ public class ArticuloServiceRepositoryImpl implements ArticuloService {
     }
 
     private void generateUnidadesCompra(Articulo articulo, Long id) {
-        EquivalenciaTango deletedEquivalenciaTango = equivalenciaRepository.findByArticulo(id);
+        EquivalenciaTango equivalenciaTango = equivalenciaRepository.findByArticulo(id);
 
-        if (deletedEquivalenciaTango != null) {
-            equivalenciaRepository.delete(deletedEquivalenciaTango.getId());
+        if (equivalenciaTango == null) {
+            equivalenciaTango = new EquivalenciaTango();
+            equivalenciaTango.setArticulo(id);
         }
 
         for (Equivalencia equivalencia: articulo.getUnidadesCpa()) {
-            EquivalenciaTango equivalenciaTango = new EquivalenciaTango();
-
-            equivalenciaTango.setArticulo(id);
             equivalenciaTango.setUnidad(getUnidad(equivalencia.getUnidad()));
             equivalenciaTango.setEquivalencia(equivalencia.getEquivalencia().floatValue());
             equivalenciaTango.setHabitual(equivalencia.getDefecto());

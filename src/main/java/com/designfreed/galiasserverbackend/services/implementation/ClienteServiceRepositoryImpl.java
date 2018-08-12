@@ -167,8 +167,6 @@ public class ClienteServiceRepositoryImpl implements ClienteService {
     private void generateDireccionEntrega(Cliente cliente) {
         DireccionEntregaTango direccionTango = direccionEntregaRepository.findByCodigoAndCliente("PRINCIPAL", cliente.getCodigo());
 
-        //direccionEntregaRepository.deleteByCliente(cliente.getCodigo());
-
         if (direccionTango == null) {
             direccionTango = new DireccionEntregaTango();
             direccionTango.setCodigo("PRINCIPAL");
@@ -185,23 +183,5 @@ public class ClienteServiceRepositoryImpl implements ClienteService {
         direccionTango.setHabilitado("S");
 
         direccionEntregaRepository.save(direccionTango);
-
-//        if(cliente.getSucursales() != null) {
-//            DireccionEntregaTango sucursalTango = new DireccionEntregaTango();
-//
-//            for (Direccion direccion : cliente.getSucursales()) {
-//                sucursalTango.setCodigo("SUCURSAL");
-//                sucursalTango.setCliente(cliente.getCodigo());
-//                sucursalTango.setDireccion(formatDireccion(direccion));
-//                sucursalTango.setProvincia("14");
-//                sucursalTango.setLocalidad(direccion.getLocalidad());
-//                sucursalTango.setHabitual("N");
-//                sucursalTango.setCodigoPostal(direccion.getCodigoPostal());
-//                sucursalTango.setTelefono("");
-//                sucursalTango.setHabilitado("S");
-//
-//                direccionEntregaRepository.save(sucursalTango);
-//            }
-//        }
     }
 }
