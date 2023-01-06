@@ -2,8 +2,9 @@ spring:
   profiles:
     active: jpa_repository
   datasource:
-#    url: jdbc:sqlserver://centrocompartido.engux.com.ar\SRVTANGOV17\AXSQLEXPRESS:1550;databaseName=Galias_Gestion
-    url: jdbc:sqlserver://centrocompartido.engux.com.ar\SRVTANGOV17\AXSQLEXPRESS:1550;databaseName=Galias_TESTING_MBISURGI
+    # url: jdbc:sqlserver://SRVTANGOV17\AXSQLEXPRESS;databaseName=Galias_Gestion
+    url: jdbc:sqlserver://centrocompartido.engux.com.ar\SRVTANGOV17\AXSQLEXPRESS:1550;databaseName=Galias_Gestion
+#    url: jdbc:sqlserver://centrocompartido.engux.com.ar\SRVTANGOV17\AXSQLEXPRESS:1550;databaseName=Galias_TESTING_MBISURGI
 #    url: jdbc:sqlserver://\WIN-646GLNJ8DGA\AXSQLEXPRESS;databaseName=Galias_TESTING_MBISURGI
     username: sa
     password: Axoft1988

@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 @Table(name = "STA11")
 public class ArticuloTango implements Serializable {
-    @TableGenerator(name = "articulo-gen", table = "PROVIDERID", pkColumnName = "ID_PROVIDERID", valueColumnName = "ULTIMOID", pkColumnValue = "10", allocationSize=1)
+    @TableGenerator(name = "articulo-gen", table = "PROVIDERID", pkColumnName = "ID_PROVIDERID", valueColumnName = "ULTIMOID", pkColumnValue = "13", allocationSize=1)
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "articulo-gen")
     @Column(name = "ID_STA11")

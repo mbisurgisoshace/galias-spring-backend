@@ -6,7 +6,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "DIRECCION_ENTREGA")
 public class DireccionEntregaTango implements Serializable {
-    @TableGenerator(name = "direccion-gen", table = "PROVIDERID", pkColumnName = "ID_PROVIDERID", valueColumnName = "ULTIMOID", pkColumnValue = "21", allocationSize=1)
+    @TableGenerator(name = "direccion-gen", table = "PROVIDERID", pkColumnName = "ID_PROVIDERID", valueColumnName = "ULTIMOID", pkColumnValue = "11", allocationSize=1)
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "direccion-gen")
     @Column(name = "ID_DIRECCION_ENTREGA")

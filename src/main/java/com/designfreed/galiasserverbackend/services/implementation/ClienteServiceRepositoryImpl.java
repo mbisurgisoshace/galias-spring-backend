@@ -74,7 +74,7 @@ public class ClienteServiceRepositoryImpl implements ClienteService {
             clienteTango.setSobreIi("N");
             clienteTango.setSobreIva("N");
             clienteTango.setTelefono("");
-            clienteTango.setTipoDocumento(getTipoDocumento(cliente.getIva()));
+            clienteTango.setTipoDocumento(getTipoDocumento(cliente.getIva(), cliente.getCuit()));
             clienteTango.setCodigoTabla14(cliente.getCodigo());
             clienteTango.setCondicionIva(getCondicionIva(cliente.getIva()));
             clienteTango.setCodigoTabla18(clienteTango.getProvincia());
@@ -143,14 +143,18 @@ public class ClienteServiceRepositoryImpl implements ClienteService {
         return condicionIva;
     }
 
-    private Integer getTipoDocumento(String iva) {
+    private Integer getTipoDocumento(String iva, String cuit) {
         Integer tipoDocumento = 0;
 
         if(iva.equals("ri") || iva.equals("rs") || iva.equals("ex")) {
             tipoDocumento = 80;
         }
 
-        if(iva.equals("cf")) {
+        if(iva.equals("cf") && !cuit.isEmpty()) {
+            tipoDocumento = 96;
+        }
+
+        if(iva.equals("cf") && cuit.isEmpty()) {
             tipoDocumento = 99;
         }
 

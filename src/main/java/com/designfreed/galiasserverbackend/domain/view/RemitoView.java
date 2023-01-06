@@ -5,6 +5,7 @@ import java.util.List;
 
 public class RemitoView {
     private Date fecha;
+    private String pedido;
     private String cliente;
     private List<RemitoViewItem> items;
 
@@ -17,6 +18,14 @@ public class RemitoView {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
+    }
+
+    public String getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(String pedido) {
+        this.pedido = pedido;
     }
 
     public String getCliente() {
