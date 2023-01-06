@@ -19,15 +19,35 @@ public class StockServiceRepositoryImpl implements StockService {
 
     @Override
     public Integer findStockByArticulo(String articulo) {
-        List<StockTango> stock = this.stockRepository.findByArticulo(articulo);
+//        List<StockTango> stock = this.stockRepository.findByArticulo(articulo);
+//
+//        Integer cantidad = 0;
+//
+//        for (StockTango it: stock) {
+//            if (it.getDeposito() == "ZZ") {
+//                cantidad+= it.getCantidad();
+//            }
+//        }
+//
+//        return cantidad;
+        StockTango stock = this.stockRepository.findByArticuloAndDeposito(articulo, "ZZ");
 
-        Integer cantidad = 0;
-
-        for (StockTango it: stock) {
-            cantidad+= it.getCantidad();
+        if (stock == null) {
+            return 0;
         }
 
-        return cantidad;
+        return stock.getCantidad();
+    }
+
+    @Override
+    public Integer findStockByArticuloAndDeposito(String articulo, String deposito) {
+        StockTango stock = this.stockRepository.findByArticuloAndDeposito(articulo, deposito);
+
+        if (stock == null) {
+            return 0;
+        }
+
+        return stock.getCantidad();
     }
 
     @Override

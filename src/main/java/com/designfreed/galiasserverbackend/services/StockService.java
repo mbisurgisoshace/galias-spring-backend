@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface StockService extends CRUDService<StockTango, Long> {
     Integer findStockByArticulo(String articulo);
+
+    Integer findStockByArticuloAndDeposito(String articulo, String deposito);
     Boolean hasStock(String articulo, String deposito, Integer cantidad);
 }
